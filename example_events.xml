@@ -1,0 +1,31 @@
+<start>
+	<date>2016.05.09</date>
+	<currencies>
+		<currency>
+			<name>USD</name>
+			<value>1.75</value>
+		<!-- value is the amount of a fictional currency you can buy with 1 of said currency -->
+		</currency>
+	</currencies>
+	<stocks>
+		<stock>
+			<name>CocaCola</name>
+			<price>300.00</price>
+		</stock>
+	<!-- price in units set in config -->
+	</stocks>
+</start>
+<events>
+	<event>
+		<type>STOCK</type>
+	<!-- allowed types : STOCK, CURRENCY -->
+		<name>CocaCola</type>
+		<date>2016.05.10</date>
+		<change>17.0</change>
+	<!-- change is % vise and can be negative like -2.0 -->
+	</event>
+
+	<!-- more events here -->
+
+</events>
+
