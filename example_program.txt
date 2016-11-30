@@ -1,28 +1,20 @@
 config example_config.xml //comment multiple configs allowed
 events example_events.xml /* multiline comment
 	multiple events allowed too */
+start start_config.xml
 
-start {
-	currencies {
-		YUA: 3 000 000;
-		USD: 200 000; //amount of money owned
-	}
-	stocks {
-		CocaCola: 15; //number of stocks owned
-	}
-}
+rule rule1.invrl
+rule {
 
-rules {
-	{
-		id: 1;			
-		priority:10; //the higher the priority the more important the rule
-		condition: currencies.YUA.rate > 300 //global condition that YUA exchange rate greater than 300
+	id: 1;			
+	priority:10; //the higher the priority the more important the rule
+	condition: currencies.YUA.rate > 300 //global condition that YUA exchange rate greater than 300
 			/* currencies support : .rate - currenct exchange rate
 						.have.amount - current amount owned
 						.have.value - current value owned in absolute currency
 			*/
-			|| (stocks.CocaCola.value <= 12 //OR used for logical OR, other operators: AND, NOT
-				 && stocks.CocaCola.have.amount > 15) //() for grouping
+		|| (stocks.CocaCola.value <= 12 //OR used for logical OR, other operators: AND, NOT
+		 && stocks.CocaCola.have.amount > 15) //() for grouping
 			/* logical operators: &&, ||, !
 			   relation operators supported: >, < , >=, <=, ==
 			   mathematical operators supported: +, -, /, *
@@ -53,5 +45,5 @@ rules {
 			 buy stocks.CocaCola for 100 exact,
 			 buy stocks.CocaCola for 100 absolute exact,
 			 buy stocks.CocaCola for 100 YUA,
-	};
+
 }	
