@@ -8,16 +8,16 @@ rule {
 	id: 1;
 	priority:10;
 	condition: currency.[YUA].rate > 300
-		|| (stock.[CocaCola].value <= 12
+		|| (stock.CocaCola.value <= 12
 		 	&& stock.[CocaCola].have.amount > 15)
 		|| rule.[15].executed
 		|| inc stock.[CocaCola].value by 5% in 5;
 	actions: sell stocks.[CocaCola] amount 75,
 		 sell stock.[NukaCola] part 75,
 		 sell stock.[NukaCola] amount ALL,
-		 sell stock.[CocaCola] for 10000,
+		 sell stock.[CocaCola] for 10 000,
 		 sell stock.[CocaCola] for 10 absolute,
-		 buy currency.[YUA] amount 77 for currency.[USD],
+		 buy currency.[YUA] amount 77 for currency.USD,
 		 buy currency.[YUA] amount 800 for ANY,
 		 buy currency.[YUA] amount MAX for ANY,
 		 buy stock.[CocaCola] amount 10 for OWN,
