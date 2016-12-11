@@ -1,9 +1,9 @@
-from Lexers.keywordsStateLexer import KeywordsStateLexer
+from Lexers.keywordsLexer import KeywordsLexer
 from Lexers.tokens import *
 
 
 file = open("../testFiles/keywordsStateLexerTF.txt", 'r+')
-tested_object = KeywordsStateLexer(file)
+tested_object = KeywordsLexer(file)
 token = tested_object.get_token()
 assert (token.token_value == "config")
 assert (token.token_type == TokenType.keyword)
@@ -11,7 +11,7 @@ file.close()
 print("Test 1 passed")
 
 file = open("../testFiles/keywordsStateLexerTF2.txt", 'r+')
-tested_object = KeywordsStateLexer(file)
+tested_object = KeywordsLexer(file)
 try:
     token = tested_object.get_token()
     assert (1 == 2)
