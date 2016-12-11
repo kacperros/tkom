@@ -1,0 +1,14 @@
+<start>
+	<currencies>
+		<currency>
+			<name>USD</name>
+			<value>1.75</value>
+		</currency>
+	</currencies>
+	<stocks>
+		<stock>
+			<name>CocaCola</name>
+			<price>300.00</price>
+		</stock>
+	</stocks>
+</start>

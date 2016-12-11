@@ -1,0 +1,49 @@
+config example_config.xml //comment multiple configs allowed
+events example_events.xml /* multiline comment
+	multiple events allowed too */
+start start_config.xml
+
+rule rule1.invrl
+rule {
+
+	id: 1;			
+	priority:10; //the higher the priority the more important the rule
+	condition: currencies.YUA.rate > 300 //global condition that YUA exchange rate greater than 300
+			/* currencies support : .rate - currenct exchange rate
+						.have.amount - current amount owned
+						.have.value - current value owned in absolute currency
+			*/
+		|| (stocks.CocaCola.value <= 12 //OR used for logical OR, other operators: AND, NOT
+		 && stocks.CocaCola.have.amount > 15) //() for grouping
+			/* logical operators: &&, ||, !
+			   relation operators supported: >, < , >=, <=, ==
+			   mathematical operators supported: +, -, /, *
+			   stock operators: stocks.CocaCola.value - current value per stock
+					    stocks.CocaCola.have.value - total value of stocks owned in currency of stock
+					    stocks.CocaCola.have.globalValue - total value of stocks owned in absolute currency
+					    stocks.CocaCola.have.amount - number of stocks owned
+				all operators can be used with dates or integer like modifications idicating the past e.g.:
+					    stocks.CocaCola.value(2016.08.10) value of stock on 2016.08.10
+					    stocks.CocaCola.value(-15) value of stock 15 days ago
+			*/
+			|| rules.15.executed //returns true if rule of given id was already executed this turn if no rule exists always false
+			//trend observation is also allowed
+			|| inc stock.CocaCola.value by 5% in 5 
+			/*
+			syntax:	inc/desc stock/currency by x%/-y% in number_of_days
+			//stocks are bought and sold in their own currencies
+		actions: sell stocks.CocaCola amount 75, 	//sell 75 stocks of CocaCola if you don't own 75 sell as much as you can
+			 sell stocks.CocaCola amount 75 exact,	//sell 75 stocks of CocaCola do this only if you can do it
+			 sell stocks.NukaCola part 75, 		//sell 75% of stocks owned of NukaCola
+			 sell stocks.NukaCola ALL,		//sell all of NukaCola stocks
+			 sell stocks.CocaCola for 10 000,	//sell stocks of CocaCola for 10 000 or as much as you can but no more than 10 000	
+			 sell stocks.CocaCola for 10 absolute,	//sell stocks of CocaCola for 10 of absolute currency. First calculates USD amount than executes like above
+			 buy currency.YUA amount 77 for USD,	// buy 77 YUA 
+			 buy currency.YUA amount 800 for ANY,	// buy 800 YUA using any free currency owned
+			 buy currency.YUA amount MAX for ANY,	// buy as much YUA as you can with any currency owned	
+			 buy stocks.CocaCola for 100,
+			 buy stocks.CocaCola for 100 exact,
+			 buy stocks.CocaCola for 100 absolute exact,
+			 buy stocks.CocaCola for 100 YUA,
+
+}	
