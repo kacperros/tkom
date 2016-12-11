@@ -7,13 +7,16 @@ class KeywordsLexer(AbstractStateLexer):
     def __init__(self, parsed_file):
         super().__init__(parsed_file)
         self.allowed_chars = list(string.ascii_letters)
-        self.break_chars = [" ", "\t", "\n", ".", "/"]
+        self.break_chars = [" ", "\t", "\n", ".", "/", ":"]
         self.keywords = ["config", "events", "start", "rule", "id", "priority", "condition",
                          "have", "executed",
                          "currency", "rate", "amount"
                          "stock", "value", "globalValue", "amount",
                          "inc", "dec",
                          "actions", "sell", "buy", "part", "for", "ANY", "MAX", "OWN"]
+
+    def is_applicable(self, starting_char):
+        return starting_char in self.allowed_chars
 
     def get_token(self):
         curr_string = ""

@@ -9,6 +9,9 @@ class GivenNameLexer(AbstractStateLexer):
         self.start_char = "["
         self.end_char = "]"
 
+    def is_applicable(self, starting_char):
+        return starting_char == self.start_char
+
     def get_token(self):
         curr_string = ""
         waiting_for_close = False

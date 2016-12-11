@@ -11,6 +11,9 @@ class NumberLexer(AbstractStateLexer):
         self.allowed_chars.append(".")
         self.allowed_chars.append("-")
 
+    def is_applicable(self, starting_char):
+        return starting_char in self.allowed_chars
+
     def get_token(self):
         curr_string = ""
         decimal_found = False
@@ -26,7 +29,8 @@ class NumberLexer(AbstractStateLexer):
             if curr_char in self.allowed_chars:
                 curr_string = curr_string + curr_char
             else:
-                raise ValueError("I believe this character is not a number, Sir")
+                self.parsed_file.seek(curr_pos, 0)
+                return Token(TokenType.number, self.to_number(curr_string, decimal_found))
 
     def to_number(self, converted_val, decimal_present):
         if decimal_present:

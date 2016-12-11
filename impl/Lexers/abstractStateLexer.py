@@ -4,3 +4,6 @@ class AbstractStateLexer:
 
     def get_token(self):
         pass
+
+    def is_applicable(self, starting_char):
+        pass
