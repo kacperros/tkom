@@ -1,4 +1,4 @@
-from Lexers.keywordsLexer import KeywordsLexer
+from Lexers.KeywordsLexer import KeywordsLexer
 from Lexers.tokens import *
 
 

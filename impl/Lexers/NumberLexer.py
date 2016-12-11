@@ -9,6 +9,7 @@ class NumberLexer(AbstractStateLexer):
         super().__init__(parsed_file)
         self.allowed_chars = list(string.digits)
         self.allowed_chars.append(".")
+        self.allowed_chars.append("-")
 
     def get_token(self):
         curr_string = ""
