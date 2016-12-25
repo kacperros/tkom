@@ -3,6 +3,7 @@ from Lexers.GivenNameLexer import *
 from Lexers.NumberLexer import *
 from Lexers.OtherCharLexer import *
 from Lexers.WhitespaceLexer import *
+from Lexers.DateLexer import *
 
 
 class Lexer:
@@ -10,6 +11,7 @@ class Lexer:
         self.parsed_file = parsed_file
         self.lexers = [KeywordsLexer(self.parsed_file),
                        GivenNameLexer(self.parsed_file),
+                       DateLexer(self.parsed_file),
                        NumberLexer(self.parsed_file),
                        OtherCharLexer(self.parsed_file),
                        WhitespaceLexer(self.parsed_file)]
