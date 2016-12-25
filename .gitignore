@@ -1,4 +1,5 @@
 *~
 impl/__pychace__
 impl/Lexers/__pycache__
-*.cpython
+impl/*.cpython-34.pyc
+impl/.idea/
