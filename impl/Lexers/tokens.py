@@ -18,6 +18,7 @@ class TokenType(Enum):
     list_separator = 12             # ,
     whitespace = 13
     comment_start = 14              # //
+    date = 15
     error = 404
 
 
