@@ -17,7 +17,7 @@ class SymbolsTable:
     def get_currency(self, abbrev):
         id_ret = self.currencies.get(abbrev)
         if id_ret is None:
-            return -1
+            raise ValueError("No currency was defined for " + abbrev + " ,Sir")
         else:
             return id_ret
 
@@ -33,6 +33,6 @@ class SymbolsTable:
     def get_stock(self, name):
         id_ret = self.stocks.get(name)
         if id_ret is None:
-            return -1
+            raise ValueError("No stock was defined for " + name + " ,Sir")
         else:
             return id_ret
