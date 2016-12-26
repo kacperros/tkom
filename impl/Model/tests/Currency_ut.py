@@ -4,7 +4,7 @@ import unittest
 
 class CurrencyTests(unittest.TestCase):
     def setUp(self):
-        self.currency = Currency('dolar amerykański', 'USD')
+        self.currency = Currency('dolar amerykański', 'USD', 1)
         self.currency.add_exchange_rate('2016.05.09', 20.0)
         self.currency.add_exchange_rate('2016.05.12', 25.0)
 

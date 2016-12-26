@@ -3,7 +3,8 @@ from datetime import timedelta
 
 
 class Currency:
-    def __init__(self, name, abbreviation):
+    def __init__(self, name, abbreviation, currency_id):
+        self.id = currency_id
         self.name = name
         self.abbreviation = abbreviation
         self.__exchange_rates = {}

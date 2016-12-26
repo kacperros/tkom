@@ -3,9 +3,9 @@ from datetime import timedelta
 
 
 class Stock:
-    def __init__(self, name, abbreviation, currency_abbreviation):
+    def __init__(self, name, currency_abbreviation, stock_id):
+        self.id = stock_id
         self.name = name
-        self.abbreviation = abbreviation
         self.currency_abbreviation = currency_abbreviation
         self.__exchange_prices = {}
         self.__earliest_date = None

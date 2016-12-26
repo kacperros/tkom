@@ -4,7 +4,7 @@ import unittest
 
 class StockTests(unittest.TestCase):
     def setUp(self):
-        self.stock = Stock('Amerykańska Coca Cola', 'Coke', 'USD')
+        self.stock = Stock('Amerykańska Coca Cola', 'USD', 1)
         self.stock.add_exchange_price('2016.05.09', 20.0)
         self.stock.add_exchange_price('2016.05.12', 25.0)
 

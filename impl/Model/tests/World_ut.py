@@ -1,14 +1,16 @@
 from Model.World import World
 from Model.Event import Event
 from Model.Event import EventType
+from Model.SymbolsTable import SymbolsTable
 import unittest
 
 
 class WorldTests(unittest.TestCase):
     def setUp(self):
-        self.world = World()
+        symbol_table = SymbolsTable()
+        self.world = World(symbol_table)
         self.world.add_currency('American Dolar', 'USD')
-        self.world.add_stock('CocaCola', 'CocaCola', 'USD')
+        self.world.add_stock('CocaCola', 'USD')
         self.world.set_start_date('2016.05.09')
         self.world.add_event(Event(EventType.STOCK, '2016.05.09', 'CocaCola', 50.0))
         self.world.add_event(Event(EventType.STOCK, '2016.05.10', 'CocaCola', 55.0))

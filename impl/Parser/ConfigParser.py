@@ -36,7 +36,7 @@ def parse_stocks(stocks):
             raise ValueError(
                 "Sir, I can not load this file, currency " + str(counter) + "it can not have empty elements")
         else:
-            result.append(Stock(name_elem.text, None, currency_elem.text))
+            result.append(Stock(name_elem.text, currency_elem.text))
         counter += 1
     return result
 
