@@ -8,7 +8,7 @@
 	<stocks>
 		<stock>
 			<name>CocaCola</name>
-			<price>300.00</price>
+			<amount>300</amount>
 		</stock>
 	</stocks>
 </start>

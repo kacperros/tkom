@@ -31,5 +31,5 @@ class Lexer:
         for lexer in self.lexers:
             if lexer.is_applicable(curr_char):
                 return lexer
-        raise ValueError("Blood Hell, Sir, no lexers found!!!")
+        raise ValueError("Bloody Hell, Sir, no lexers found!!!")
 
