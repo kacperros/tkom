@@ -3,3 +3,7 @@ impl/__pychace__
 impl/Lexers/__pycache__
 impl/*.cpython-34.pyc
 impl/.idea/
+impl/Parser/__pycache__/
+impl/Model/__pycache__/
+*.pyc
+*.pyo
