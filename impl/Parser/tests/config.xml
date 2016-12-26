@@ -1,0 +1,22 @@
+<products>
+	<currencies>
+		<currency>
+			<name>yuan</name>
+			<abbreviation>YUA</abbreviation>
+		</currency>
+		<currency>
+			<name>yen</name>
+			<abbreviation>YEN</abbreviation>
+		</currency>
+		<currency>
+			<name>dollar USA</name>
+			<abbreviation>USD</abbreviation>
+		</currency>
+ 	</currencies>
+	<stocks>
+		<stock>
+			<name>CocaCola</name>
+			<currency>USD</currency>
+		</stock>
+	</stocks>
+</products>
