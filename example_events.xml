@@ -4,7 +4,7 @@
 	<!-- allowed types : STOCK, CURRENCY -->
 		<name>CocaCola</name>
 		<date>2016.05.10</date>
-		<change>17.0</change>
+		<value>144.45</value>
 	<!-- change is % vise and can be negative like -2.0 -->
 	</event>
 

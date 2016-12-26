@@ -2,11 +2,11 @@ from enum import Enum
 
 
 class Event:
-    def __init__(self, type, date_str, name, change):
-        self.type = type
+    def __init__(self, event_type, date_str, name, value):
+        self.event_type = event_type
         self.date_str = date_str
         self.name = name
-        self.change = change
+        self.value = value
 
 
 class EventType(Enum):
