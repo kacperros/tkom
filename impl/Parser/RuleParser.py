@@ -1,9 +1,14 @@
 from Lexers.Lexer import Lexer
 from Lexers.tokens import *
-import Parser.ConditionParser
+from Model.Cond.Condition import Condition
+from Model.Cond.TrueCondition import TrueCondition
+from Model.Cond.ComparisonCondition import ComparisonCondition
+from Model.Cond.MasterCondition import MasterCondition
+from Model.Cond.RuleExecCondition import RuleExecCondition
+from Model.Cond.TrendCondition import TrendCondition
 
 
-def parse_from_lexer(lexer, symbol_table):
+def parse_from_lexer(lexer, symbol_table, engine):
     token = lexer.get_token()
     if token.token_type != TokenType.keyword or token.token_value != 'rule':
         raise ValueError("This error should not have occurred. rule keyword is expected, Sir")
@@ -15,7 +20,7 @@ def parse_from_lexer(lexer, symbol_table):
     elif token.token_type == TokenType.structure_operator_start:
         rid = get_id(lexer, symbol_table)
         prio = get_priority(lexer)
-        condition = get_condition(lexer, symbol_table)
+        condition = get_condition(lexer, symbol_table, engine)
         # actions = get_actions(lexer, symbol_table)
     else:
         raise ValueError("Either a given_name of a file containing a rule or { are expected, Sir")
@@ -57,8 +62,37 @@ def get_priority(lexer):
     return rule_id
 
 
-def get_condition(lexer, symbol_table):
-    pass
+def get_condition(lexer, symbol_table, engine):
+    token = get_token_skipping_whitespace(lexer)
+    if token.token_type != TokenType.keyword or token.token_value != 'condition':
+        raise ValueError("Keyword condition expected Sir. Found: " + str(token.token_value))
+    token = get_token_skipping_whitespace(lexer)
+    if token.token_type != TokenType.definition_operator:
+        raise ValueError('Expected : ,found ' + str(token.token_value), " Sir.")
+    token = get_token_skipping_whitespace(lexer)
+    if token.token_type == TokenType.instr_end:
+        return TrueCondition()
+    elif token.token_type == TokenType.keyword or token.token_type == TokenType.list_start:
+        return _build_conditions(token, lexer, symbol_table, engine)
+    else:
+        raise ValueError("Inappropriate token found " + str(token.token_value))
+
+
+def _build_conditions(token, lexer, symbol_table, engine):
+    master = MasterCondition()
+    while True:
+        if token.token_type == TokenType.keyword:
+            if token.token_value == 'currency' or token.token_value == 'stock':
+                pass
+            if token.token_value == 'rule':
+                pass
+            if token.token_value == 'inc' or token.token_value == 'dec':
+                pass
+        elif token.token_type == TokenType.list_start:
+            pass
+        elif token.token_type == TokenType.instr_end:
+            break
+    return master
 
 
 def get_actions(lexer, symbol_table):

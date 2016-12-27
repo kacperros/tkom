@@ -10,7 +10,7 @@ class RealityController:
         self.investor = Investor()
         self.event_world_adapter = EventWorldAdapter(self.world)
         self.start_investor_adapter = StartInvestorAdapter(self.investor)
-        self.rules = []
+        self.rules = {}
 
     def add_event(self, event):
         self.event_world_adapter.add_event(event)

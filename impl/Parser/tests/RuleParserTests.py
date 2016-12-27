@@ -2,6 +2,7 @@ import unittest
 import Parser.RuleParser
 from Model.SymbolsTable import SymbolsTable
 from Lexers.Lexer import Lexer
+from Engine.RealityController import RealityController
 
 
 class EventParserTests(unittest.TestCase):
@@ -14,7 +15,8 @@ class EventParserTests(unittest.TestCase):
         symbol_table.add_stock('NukaCola')
         parsed_file = open("rule.txt")
         lexer = Lexer(parsed_file)
-        Parser.RuleParser.parse_from_lexer(lexer, symbol_table)
+        controller = RealityController()
+        Parser.RuleParser.parse_from_lexer(lexer, symbol_table, controller)
 
 
 if __name__ == '__main__':
