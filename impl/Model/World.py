@@ -15,8 +15,8 @@ class World:
     def next_day(self):
         self.__current_day = dateConv.next_day(dateConv.to_str(self.__current_day))
 
-    def add_currency(self, name, abbreviation, currency_id):
-        self.__currencies[currency_id] = Currency(name, abbreviation, currency_id)
+    def add_currency(self, currency):
+        self.__currencies[currency.id] = currency
 
     def add_currency_rate(self, symbol_id, date_str, rate):
         currency_upgaded = self.__currencies.get(symbol_id)
@@ -33,8 +33,8 @@ class World:
     def get_currency_rate_now(self, symbol_id):
         return self.get_currency_rate(symbol_id, dateConv.to_str(self.__current_day))
 
-    def add_stock(self, stock_name, curr_id, stock_id):
-        self.__stocks[stock_id] = Stock(stock_name, curr_id, stock_id)
+    def add_stock(self, stock):
+        self.__stocks[stock.id] = stock
 
     def add_stock_price(self, symbol_id, date_str, price):
         stock_updated = self.__stocks.get(symbol_id)

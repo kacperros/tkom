@@ -1,15 +1,15 @@
-from Model.World import World
-from Model.Event import Event
-from Model.Event import EventType
-from Model.SymbolsTable import SymbolsTable
 import unittest
+
+from Model.World import World
+from Model.Currency import Currency
+from Model.Stock import Stock
 
 
 class WorldTests(unittest.TestCase):
     def setUp(self):
         self.world = World()
-        self.world.add_currency('American Dolar', 'USD', 0)
-        self.world.add_stock('CocaCola', 0, 0)
+        self.world.add_currency(Currency('American Dolar', 'USD', 0))
+        self.world.add_stock(Stock('CocaCola', 0, 0))
         self.world.set_start_date('2016.05.09')
         self.world.add_currency_rate(0, '2016.05.09', 150.0)
         self.world.add_currency_rate(0, '2016.05.10', 50.0)

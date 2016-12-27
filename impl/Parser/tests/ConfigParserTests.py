@@ -3,7 +3,7 @@ import Parser.ConfigParser as cp
 from Model.SymbolsTable import SymbolsTable
 
 
-class CurrencyTests(unittest.TestCase):
+class ConfigParserTests(unittest.TestCase):
 
     def test_getCorrectDate(self):
         symbol_table = SymbolsTable()
