@@ -11,6 +11,5 @@ class EventParserTests(unittest.TestCase):
         lexer = Lexer(parsed_file)
 
 
-
 if __name__ == '__main__':
     unittest.main()

@@ -5,44 +5,46 @@ class Investor:
         self.__stocks = {}
         self.__currencies = {}
 
-    def add_currency(self, curr_abbrev, amount):
-        added = self.__currencies.get(curr_abbrev)
+    def add_currency(self, curr_id, amount):
+        added = self.__currencies.get(curr_id)
         if added is None:
-            self.__currencies[curr_abbrev] = amount
+            self.__currencies[curr_id] = amount
         else:
-            self.__currencies[curr_abbrev] += amount
+            self.__currencies[curr_id] += amount
 
-    def has_currency(self, curr_abbrev):
-        curr = self.__currencies.get(curr_abbrev)
+    def has_currency(self, curr_id):
+        curr = self.__currencies.get(curr_id)
         if curr is None:
-            raise ValueError("No such currency, can't perform, Sir")
+            return 0
         else:
             return curr
 
-    def rem_currency(self, curr_abbrev, amount):
-        curr = self.__currencies.get(curr_abbrev)
-        if curr is None:
-            raise ValueError("No such currency, can't perform, Sir")
+    def rem_currency(self, curr_id, amount):
+        curr = self.__currencies.get(curr_id)
+        if curr is None or curr < amount:
+            return False
         else:
-            self.__currencies[curr_abbrev] -= amount
+            self.__currencies[curr_id] -= amount
+            return True
 
-    def add_stock(self, stock_name, amount):
-        added = self.__stocks.get(stock_name)
+    def add_stock(self, stock_id, amount):
+        added = self.__stocks.get(stock_id)
         if added is None:
-            self.__currencies[stock_name] = amount
+            self.__stocks[stock_id] = amount
         else:
-            self.__currencies[stock_name] += amount
+            self.__stocks[stock_id] += amount
 
-    def has_stock(self, stock_name):
-        stock = self.__currencies.get(stock_name)
+    def has_stock(self, stock_id):
+        stock = self.__stocks.get(stock_id)
         if stock is None:
-            raise ValueError("No such currency, can't perform, Sir")
+            return 0
         else:
             return stock
 
-    def rem_stock(self, stock_name, amount):
-        stock = self.__currencies.get(stock_name)
-        if stock is None:
-            raise ValueError("No such currency, can't perform, Sir")
+    def rem_stock(self, stock_id, amount):
+        stock = self.__stocks.get(stock_id)
+        if stock is None or stock < amount:
+            return False
         else:
-            self.__stocks[stock_name] -= amount
+            self.__stocks[stock_id] -= amount
+            return True
