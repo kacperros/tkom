@@ -4,6 +4,7 @@ class SymbolsTable:
         self.__currencies_counter = 0
         self.stocks = {}       # keys - names, values - id
         self.__stocks_counter = 0
+        self.__rule_ids = {}
 
     def add_currency(self, abbrev):
         id_checked = self.currencies.get(abbrev)
@@ -36,3 +37,17 @@ class SymbolsTable:
             raise ValueError("No stock was defined for " + name + " ,Sir")
         else:
             return id_ret
+
+    def is_rule_id_busy(self, rule_id):
+        id_checked = self.__rule_ids.get(rule_id)
+        if id_checked is None:
+            return False
+        else:
+            return True
+
+    def add_rule_id(self, rule_id):
+        id_cheched = self.__rule_ids.get(rule_id)
+        if id_cheched is not None:
+            raise ValueError("Rule Id " + str(rule_id) + " is already taken, Sir")
+        else:
+            self.__rule_ids[id_cheched] = rule_id

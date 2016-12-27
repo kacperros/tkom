@@ -17,6 +17,14 @@ def next_day_str(date_str):
     return to_str(next_day(date_str))
 
 
+def get_date_back_x(date_str, x):
+    return datetime.strptime(date_str, "%Y.%m.%d").date() - timedelta(x)
+
+
+def get_date_str_back_x(date_str, x):
+    return to_str(get_date_back_x(date_str, x))
+
+
 def is_date_str_valid_format(date_str):
     try:
         datetime.strptime(date_str, "%Y.%m.%d").date()
