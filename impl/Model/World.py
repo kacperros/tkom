@@ -7,13 +7,13 @@ class World:
     def __init__(self):
         self.__currencies = {}  # key - id, value - currency
         self.__stocks = {}  # key - id , value - stock
-        self.__current_day = None
+        self.current_day = None
 
     def set_start_date(self, start_date_str):
-        self.__current_day = dateConv.to_date(start_date_str)
+        self.current_day = dateConv.to_date(start_date_str)
 
     def next_day(self):
-        self.__current_day = dateConv.next_day(dateConv.to_str(self.__current_day))
+        self.current_day = dateConv.next_day(dateConv.to_str(self.current_day))
 
     def add_currency(self, currency):
         self.__currencies[currency.id] = currency
@@ -31,7 +31,7 @@ class World:
         return currency_viewed.get_exchange_rate(date_str)
 
     def get_currency_rate_now(self, symbol_id):
-        return self.get_currency_rate(symbol_id, dateConv.to_str(self.__current_day))
+        return self.get_currency_rate(symbol_id, dateConv.to_str(self.current_day))
 
     def add_stock(self, stock):
         self.__stocks[stock.id] = stock
@@ -49,5 +49,5 @@ class World:
         return stock_viewed.get_exchange_price(date_str)
 
     def get_stock_price_now(self, symbol_id):
-        return self.get_stock_price(symbol_id, dateConv.to_str(self.__current_day))
+        return self.get_stock_price(symbol_id, dateConv.to_str(self.current_day))
 
