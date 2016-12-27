@@ -1,11 +1,13 @@
 import unittest
 import Parser.ConfigParser as cp
+from Model.SymbolsTable import SymbolsTable
 
 
 class CurrencyTests(unittest.TestCase):
 
     def test_getCorrectDate(self):
-        result = cp.parse_file('config.xml')
+        symbol_table = SymbolsTable()
+        result = cp.parse_file('config.xml', symbol_table)
         currencies = result['currencies']
         stocks = result['stocks']
         self.assertEqual(len(currencies), 3)

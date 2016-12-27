@@ -33,8 +33,8 @@ class World:
     def get_currency_rate_now(self, symbol_id):
         return self.get_currency_rate(symbol_id, dateConv.to_str(self.__current_day))
 
-    def add_stock(self, stock_name, curr_abbrev, stock_id):
-        self.__stocks[stock_id] = Stock(stock_name, curr_abbrev, stock_id)
+    def add_stock(self, stock_name, curr_id, stock_id):
+        self.__stocks[stock_id] = Stock(stock_name, curr_id, stock_id)
 
     def add_stock_price(self, symbol_id, date_str, price):
         stock_updated = self.__stocks.get(symbol_id)
