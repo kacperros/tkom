@@ -3,7 +3,7 @@ rule {
 	id: 1;
 	priority:10;
 	condition: currency.[YUA].rate > 300
-		|| (stock.[CocaCola].value(1) <= 12
+		|| ((stock.[CocaCola].value(1) <= 12)
 		 	&& stock.[CocaCola].have.amount > 15)
 		|| inc stock.[CocaCola].value by 1 in 1;
 	actions: sell stocks.[CocaCola] amount 75,
