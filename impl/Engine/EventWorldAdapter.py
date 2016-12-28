@@ -6,9 +6,9 @@ class EventWorldAdapter:
         self.world = world
 
     def add_event(self, event):
-        if event.event_type == EventType.CURRENCY.name:
+        if event.event_type == EventType.CURRENCY:
             self.__add_currency_event(event)
-        elif event.event_type == EventType.STOCK.name:
+        elif event.event_type == EventType.STOCK:
             self.__add_stock_event(event)
         else:
             raise ValueError("Event type is not present in system, Sir")

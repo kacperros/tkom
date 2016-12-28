@@ -83,15 +83,19 @@ def get_condition(lexer, symbol_table, engine):
 def _build_conditions(token, lexer, symbol_table, engine):
     master = MasterCondition()
     while True:
-        if token.token_type == TokenType.keyword or token.token_type == TokenType.number:
+        is_negated = False
+        if token.token_type == TokenType.keyword or token.token_type == TokenType.number or (
+                token.token_type == TokenType.logical_operator and token.token_value == '!'):
+            if token.token_type == TokenType.logical_operator and token.token_value == '!':
+                is_negated = True
             if token.token_value == 'currency' or token.token_value == 'stock' or token.token_type == TokenType.number:
-                cond = _parse_comparison_cond(token, lexer, symbol_table, engine)
+                cond = _parse_comparison_cond(token, lexer, symbol_table, engine, is_negated)
                 master.conditions.append(cond)
             if token.token_value == 'rule':
-                cond = _parse_rule_cond(token, lexer, symbol_table, engine)
+                cond = _parse_rule_cond(token, lexer, symbol_table, engine, is_negated)
                 master.conditions.append(cond)
             if token.token_value == 'inc' or token.token_value == 'dec':
-                cond = _parse_trend_cond(token, lexer, symbol_table, engine)
+                cond = _parse_trend_cond(token, lexer, symbol_table, engine, is_negated)
                 master.conditions.append(cond)
         elif token.token_type == TokenType.list_start:
             pass
@@ -102,12 +106,13 @@ def _build_conditions(token, lexer, symbol_table, engine):
     return master
 
 
-def _parse_comparison_cond(token, lexer, symbol_table, engine):
+def _parse_comparison_cond(token, lexer, symbol_table, engine, is_negated):
     access_method1, symbol_id1, date_str1, num1 = _get_numeric_comparison_argument(token, lexer, symbol_table, engine)
     operator = _get_comparison_operator(lexer)
+    token = get_token_skipping_whitespace(lexer)
     access_method2, symbol_id2, date_str2, num2 = _get_numeric_comparison_argument(token, lexer, symbol_table, engine)
     return _build_comparison_condition(access_method1, symbol_id1, date_str1, num1, operator, access_method2,
-                                       symbol_id2, date_str2, num2)
+                                       symbol_id2, date_str2, num2, is_negated)
 
 
 def _get_numeric_comparison_argument(token, lexer, symbol_table, engine):
@@ -189,15 +194,25 @@ def _get_comparison_operator(lexer):
 
 
 def _build_comparison_condition(access_method1, symbol_id1, date_str1, num1, operator, access_method2, symbol_id2,
-                                date_str2, num2):
+                                date_str2, num2, is_negated):
+    cond = ComparisonCondition(is_negated)
+    cond.arg1_access_method = access_method1
+    cond.arg1_method_symbol_id = symbol_id1
+    cond.arg1_method_date_str = date_str1
+    cond.arg1 = num1
+    cond.chosen_oper = cond.comparison_opers[operator]
+    cond.arg2_access_method = access_method2
+    cond.arg2_method_date_str = date_str2
+    cond.arg2_method_symbol_id = symbol_id2
+    cond.arg2 = num2
+    return cond
+
+
+def _parse_rule_cond(token, lexer, symbol_table, engine, is_negated):
     pass
 
 
-def _parse_rule_cond(token, lexer, symbol_table, engine):
-    pass
-
-
-def _parse_trend_cond(token, lexer, symbol_table, engine):
+def _parse_trend_cond(token, lexer, symbol_table, engine, is_negated):
     pass
 
 
