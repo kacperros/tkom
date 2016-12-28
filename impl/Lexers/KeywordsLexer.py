@@ -9,9 +9,9 @@ class KeywordsLexer(AbstractStateLexer):
         self.break_chars = [" ", "\t", "\n", ".", "/", ":", "("]
         self.keywords = ["config", "events", "start", "rule", "id", "priority", "condition",
                          "have", "executed",
-                         "currency", "rate", "amount"
-                                             "stock", "value", "globalValue", "amount",
-                         "inc", "dec",
+                         "currency", "rate", "amount",
+                         "stock", "value", "globalValue", "amount",
+                         "inc", "dec", "by", "in",
                          "actions", "sell", "buy", "part", "for", "ANY", "MAX", "OWN"]
         self.allowed_chars = list(string.ascii_letters)
         self.first_chars = self.__get_first_chars()

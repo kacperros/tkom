@@ -8,6 +8,7 @@ class NumberLexer(AbstractStateLexer):
     def __init__(self, parsed_file):
         super().__init__(parsed_file)
         self.start_chars = list(string.digits)
+        self.start_chars.append("-")
         self.allowed_chars = list(string.digits)
         self.allowed_chars.append(".")
         self.allowed_chars.append("-")

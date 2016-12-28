@@ -24,7 +24,14 @@ class EventParserTests(unittest.TestCase):
         controller.world.current_day = dC.to_date('2016.05.16')
         controller.world.add_currency(Currency('yuan', 'YUA', 0))
         controller.world.add_currency(Currency('usa dollar', 'USD', 1))
+        controller.world.add_stock(Stock('CocaCola', 1, 0))
+        controller.world.add_stock(Stock('NukaCola', 1, 1))
         controller.add_event(Event(EventType.CURRENCY, '2016.05.16', 0, 500))
+        controller.add_event(Event(EventType.CURRENCY, '2016.05.15', 0, 400))
+        controller.add_event(Event(EventType.STOCK, '2016.05.16', 0, 500))
+        controller.add_event(Event(EventType.STOCK, '2016.05.15', 0, 400))
+        controller.add_event(Event(EventType.STOCK, '2016.05.14', 0, 400))
+        controller.add_event(Event(EventType.STOCK, '2016.05.13', 0, 400))
         Parser.RuleParser.parse_from_lexer(lexer, symbol_table, controller)
 
 

@@ -5,7 +5,6 @@ rule {
 	condition: currency.[YUA].rate > 300
 		|| (stock.[CocaCola].value(1) <= 12
 		 	&& stock.[CocaCola].have.amount > 15)
-		|| rule.[15].executed
 		|| inc stock.[CocaCola].value by 1 in 1;
 	actions: sell stocks.[CocaCola] amount 75,
 		 sell stock.[NukaCola] part 75,
@@ -17,6 +16,5 @@ rule {
 		 buy currency.[YUA] amount MAX for ANY,
 		 buy stock.[CocaCola] amount 10 for OWN,
 		 buy stock.[CocaCola] amount MAX for ANY,
-		 buy stock.[CocaCola] amount MAX for currency.[YUA],
-		 buy stock.[CocaCola] amount MAX for (currency.[YUA], currency.[USD]);
+		 buy stock.[CocaCola] amount MAX for currency.[YUA];
 }
