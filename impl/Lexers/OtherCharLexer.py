@@ -7,6 +7,7 @@ class OtherCharLexer(AbstractStateLexer):
     def __init__(self, parsed_file):
         super().__init__(parsed_file)
         self.allowed_chars = list(string.punctuation)
+        self.allowed_chars.remove('@')
 
     def is_applicable(self, starting_char):
         return starting_char in self.allowed_chars
@@ -16,6 +17,8 @@ class OtherCharLexer(AbstractStateLexer):
         while True:
             curr_pos = self.parsed_file.tell()
             curr_char = self.parsed_file.read(1)
+            if curr_char == '.':
+                return Token(TokenType.access_operator, curr_char)
             if curr_char in self.allowed_chars:
                 curr_string = curr_string + curr_char
             else:

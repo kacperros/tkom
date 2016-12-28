@@ -6,7 +6,7 @@ import string
 class KeywordsLexer(AbstractStateLexer):
     def __init__(self, parsed_file):
         super().__init__(parsed_file)
-        self.break_chars = [" ", "\t", "\n", ".", "/", ":"]
+        self.break_chars = [" ", "\t", "\n", ".", "/", ":", "("]
         self.keywords = ["config", "events", "start", "rule", "id", "priority", "condition",
                          "have", "executed",
                          "currency", "rate", "amount"

@@ -7,12 +7,13 @@ from Lexers.tokens import *
 class NumberLexer(AbstractStateLexer):
     def __init__(self, parsed_file):
         super().__init__(parsed_file)
+        self.start_chars = list(string.digits)
         self.allowed_chars = list(string.digits)
         self.allowed_chars.append(".")
         self.allowed_chars.append("-")
 
     def is_applicable(self, starting_char):
-        return starting_char in self.allowed_chars
+        return starting_char in self.start_chars
 
     def get_token(self):
         curr_string = ""
