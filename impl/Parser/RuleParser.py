@@ -18,12 +18,10 @@ def parse_from_lexer(lexer, symbol_table, engine):
         rid = get_id(lexer, symbol_table)
         prio = get_priority(lexer)
         condition = condParser.get_condition(lexer, symbol_table, engine)
-        condition.eval()
-        actions = get_actions(lexer, symbol_table)
+        actions = get_actions(lexer, symbol_table, engine)
         rule = Rule(rid, prio, condition, actions)
         symbol_table.add_rule_id(rid)
         engine.rules[rid] = rule
-
     else:
         raise ValueError("Either a given_name of a file containing a rule or { are expected, Sir")
 
@@ -64,8 +62,21 @@ def get_priority(lexer):
     return rule_id
 
 
+def get_actions(lexer, symbol_table, engine):
+    last_was_action = False
+    actions = []
+    while True:
+        if last_was_action:
+            token = utils.get_token_skipping_whitespace(lexer)
+            if token.token_value == TokenType.list_separator:
+                last_was_action = False
+                continue
+            if token.token_value == TokenType.instr_end:
+                break
+        else:
+            actions.append(parse_action(lexer, symbol_table, engine))
+    return actions
 
-def get_actions(lexer, symbol_table):
+
+def parse_action(lexer, symbol_table, engine):
     pass
-
-
