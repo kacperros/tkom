@@ -189,7 +189,7 @@ def _parse_rule_cond(token, lexer, symbol_table, engine, is_negated):
     if token.token_type != TokenType.keyword and token.token_value != 'rule':
         raise ValueError('Rule keyword expected, found: ' + str(token.token_value) + " ,Sir.")
     utils.expect_access_operator(lexer)
-    rule_id = utils.expect_given_name(lexer)
+    rule_id = int(utils.expect_given_name(lexer))
     if not symbol_table.is_rule_id_busy(rule_id):
         raise ValueError("Trying to check execution or non existant rule: " + str(rule_id) + " ,Sir.")
     rule = engine.rules.get(rule_id)

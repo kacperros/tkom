@@ -21,6 +21,6 @@ rule {
 rule {
 	id: 2;
 	priority:1;
-	condition: ;
+	condition: rule.[1].executed;
 	actions: sell stock.[CocaCola] amount 1;
 }
