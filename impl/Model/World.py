@@ -1,6 +1,6 @@
+from random import randint
+
 import Utils.DateConverter as dateConv
-from Model.Currency import Currency
-from Model.Stock import Stock
 
 
 class World:
@@ -51,3 +51,22 @@ class World:
     def get_stock_price_now(self, symbol_id):
         return self.get_stock_price(symbol_id, dateConv.to_str(self.current_day))
 
+    def get_stock_currency_id(self, stock_id):
+        stock = self.__stocks.get(stock_id)
+        if stock is None:
+            raise ValueError("Trying to access currency for nonexistant stock, Sir")
+        return stock.currency_id
+
+    def get_random_currency_id(self):
+        length = len(self.__currencies) - 1
+        return randint(0, length)
+
+    def get_random_stock_id(self):
+        length = len(self.__stocks) - 1
+        return randint(0, length)
+
+    def get_currencies(self):
+        return self.__currencies
+
+    def get_stocks(self):
+        return self.__stocks

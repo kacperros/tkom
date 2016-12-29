@@ -3,14 +3,13 @@ rule {
 	id: 1;
 	priority:10;
 	condition: currency.[YUA].rate > 300
-		|| ((stock.[CocaCola].value(1) <= 12)
+		|| (stock.[CocaCola].value(1) <= 12
 		 	&& stock.[CocaCola].have.amount > 15)
 		|| inc stock.[CocaCola].value by 1 in 1;
 	actions: sell stocks.[CocaCola] amount 75,
 		 sell stock.[NukaCola] part 75,
 		 sell stock.[NukaCola] amount ALL,
 		 sell stock.[CocaCola] for 10000,
-		 sell stock.[CocaCola] for 10 absolute,
 		 buy currency.[YUA] amount 77 for currency.[USD],
 		 buy currency.[YUA] amount 800 for ANY,
 		 buy currency.[YUA] amount MAX for ANY,
