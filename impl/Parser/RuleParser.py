@@ -6,9 +6,14 @@ from Model.Rule import Rule
 from Model.Action import Action
 
 
-def parse_from_lexer(lexer, symbol_table, engine):
+def parse_from_lexer(lexer, symbol_table, engine, passed_token):
+    rotated = False
     while True:
-        token = utils.get_token_skipping_whitespace(lexer)
+        if passed_token is None or rotated:
+            token = utils.get_token_skipping_whitespace(lexer)
+        else:
+            token = passed_token
+            rotated = True
         if token.token_type == TokenType.eof:
             return
         if token.token_type != TokenType.keyword or token.token_value != 'rule':
@@ -17,7 +22,7 @@ def parse_from_lexer(lexer, symbol_table, engine):
         if token.token_type == TokenType.given_name:
             parsed_file = open(token.token_value)
             new_lexer = Lexer(parsed_file)
-            parse_from_lexer(new_lexer, symbol_table)
+            parse_from_lexer(new_lexer, symbol_table, engine, None)
         elif token.token_type == TokenType.structure_operator_start:
             rid = get_id(lexer, symbol_table)
             prio = get_priority(lexer)
@@ -29,6 +34,7 @@ def parse_from_lexer(lexer, symbol_table, engine):
             engine.rules[rid] = rule
         else:
             raise ValueError("Either a given_name of a file containing a rule or { are expected, Sir")
+        rotated = True
 
 
 def get_id(lexer, symbol_table):

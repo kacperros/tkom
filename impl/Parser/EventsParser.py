@@ -42,4 +42,4 @@ def parse_event(event_elem, symbol_table, file_name, counter):
         raise ValueError(
             "Terribly sorry Sir, but date format is incorrect. It should be yyyy.MM.dd in " + file_name + " at " + str(
                 counter))
-    return Event(event_type.text, event_date.text, symbol_id, event_value.text)
+    return Event(event_type.text, event_date.text, symbol_id, float(event_value.text))

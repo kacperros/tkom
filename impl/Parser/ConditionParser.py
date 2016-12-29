@@ -79,7 +79,8 @@ def _build_conditions(token, lexer, symbol_table, engine, depth):
                 raise ValueError("Unclosed group is present, Sir")
         raise ValueError(
             "Condition should be build by alternating between condition " +
-            "or condition groups and || or && symbols, please adhere, Sir. It must also end in a condition.")
+            "or condition groups and || or && symbols, please adhere, Sir. It must also end in a condition."
+            " Please check for ; also")
     return master
 
 

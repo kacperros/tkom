@@ -14,6 +14,14 @@ class RealityController:
         self.start_investor_adapter = StartInvestorAdapter(self.investor)
         self.rules = {}
 
+    def next_day(self):
+        self.world.next_day()
+        for k, v in self.rules.items():
+            v.executed = False
+
+    def add_start_cond(self, start_cond):
+        self.start_investor_adapter.add_start_cond(start_cond)
+
     def add_event(self, event):
         self.event_world_adapter.add_event(event)
 

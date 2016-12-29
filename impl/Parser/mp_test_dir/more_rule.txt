@@ -1,0 +1,6 @@
+rule {
+	id: 2;
+	priority:1;
+	condition: ;
+	actions: sell stock.[CocaCola] amount 1;
+}
