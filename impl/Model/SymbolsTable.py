@@ -50,4 +50,4 @@ class SymbolsTable:
         if id_cheched is not None:
             raise ValueError("Rule Id " + str(rule_id) + " is already taken, Sir")
         else:
-            self.__rule_ids[id_cheched] = rule_id
+            self.__rule_ids[rule_id] = rule_id

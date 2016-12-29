@@ -4,10 +4,12 @@ import Parser.EventsParser as events_parser
 import Parser.RuleParser as rule_parser
 import Parser.StartParser as start_parser
 from Lexers.Lexer import Lexer
+from enum import Enum
 
 
 class MainParser:
-    pass
+    def __init__(self, engine, lexer, symbol_table):
+        pass
 
 
 

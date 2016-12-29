@@ -7,24 +7,28 @@ from Model.Action import Action
 
 
 def parse_from_lexer(lexer, symbol_table, engine):
-    token = lexer.get_token()
-    if token.token_type != TokenType.keyword or token.token_value != 'rule':
-        raise ValueError("This error should not have occurred. rule keyword is expected, Sir")
-    token = utils.get_token_skipping_whitespace(lexer)
-    if token.token_type == TokenType.given_name:
-        parsed_file = open(token.token_value)
-        new_lexer = Lexer(parsed_file)
-        parse_from_lexer(new_lexer, symbol_table)
-    elif token.token_type == TokenType.structure_operator_start:
-        rid = get_id(lexer, symbol_table)
-        prio = get_priority(lexer)
-        condition = condParser.get_condition(lexer, symbol_table, engine)
-        actions = get_actions(lexer, symbol_table, engine)
-        rule = Rule(rid, prio, condition, actions)
-        symbol_table.add_rule_id(rid)
-        engine.rules[rid] = rule
-    else:
-        raise ValueError("Either a given_name of a file containing a rule or { are expected, Sir")
+    while True:
+        token = utils.get_token_skipping_whitespace(lexer)
+        if token.token_type == TokenType.eof:
+            return
+        if token.token_type != TokenType.keyword or token.token_value != 'rule':
+            raise ValueError("This error should not have occurred. rule keyword is expected, Sir")
+        token = utils.get_token_skipping_whitespace(lexer)
+        if token.token_type == TokenType.given_name:
+            parsed_file = open(token.token_value)
+            new_lexer = Lexer(parsed_file)
+            parse_from_lexer(new_lexer, symbol_table)
+        elif token.token_type == TokenType.structure_operator_start:
+            rid = get_id(lexer, symbol_table)
+            prio = get_priority(lexer)
+            condition = condParser.get_condition(lexer, symbol_table, engine)
+            actions = get_actions(lexer, symbol_table, engine)
+            utils.expect_otherchar(lexer, TokenType.structure_operator_end, '}')
+            rule = Rule(rid, prio, condition, actions)
+            symbol_table.add_rule_id(rid)
+            engine.rules[rid] = rule
+        else:
+            raise ValueError("Either a given_name of a file containing a rule or { are expected, Sir")
 
 
 def get_id(lexer, symbol_table):
@@ -71,10 +75,10 @@ def get_actions(lexer, symbol_table, engine):
     while True:
         if last_was_action:
             token = utils.get_token_skipping_whitespace(lexer)
-            if token.token_value == TokenType.list_separator:
+            if token.token_type == TokenType.list_separator:
                 last_was_action = False
                 continue
-            if token.token_value == TokenType.instr_end:
+            if token.token_type == TokenType.instr_end:
                 break
         else:
             actions.append(parse_action(lexer, symbol_table, engine))
@@ -143,11 +147,11 @@ def parse_action(lexer, symbol_table, engine):
         utils.expect_keyword(lexer, 'for')
         currency_used_id = None
         token = utils.get_token_skipping_whitespace(lexer)
-        if token.token_type == TokenType.keyword or token.token_value == 'OWN':
+        if token.token_type == TokenType.keyword and token.token_value == 'OWN':
             currency_used_id = 'OWN'
-        elif token.token_type == TokenType.keyword or token.token_value == 'ANY':
+        elif token.token_type == TokenType.keyword and token.token_value == 'ANY':
             currency_used_id = 'ANY'
-        elif token.token_type == TokenType.keyword or token.token_value == 'currency':
+        elif token.token_type == TokenType.keyword and token.token_value == 'currency':
             utils.expect_access_operator(lexer)
             currency_name = utils.expect_given_name(lexer)
             currency_used_id = symbol_table.get_currency(currency_name)
@@ -171,6 +175,6 @@ def build_action(engine, is_buy, is_stock, symbol_id, amount=None, part=None, cu
         elif part is not None:
             return Action(engine.sell_stock_part, symbol_id, part)
         elif curr_amount is not None:
-            return Action(engine.sell_stock_for_currency)
+            return Action(engine.sell_stock_for_currency, symbol_id, curr_amount)
         else:
             raise ValueError("Critical error, during construction, Sir")

@@ -33,6 +33,8 @@ class EventParserTests(unittest.TestCase):
         controller.add_event(Event(EventType.STOCK, '2016.05.14', 0, 400))
         controller.add_event(Event(EventType.STOCK, '2016.05.13', 0, 400))
         Parser.RuleParser.parse_from_lexer(lexer, symbol_table, controller)
+        rule = controller.rules.get(1)
+        print(rule.priority)
 
 
 if __name__ == '__main__':
