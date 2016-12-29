@@ -40,6 +40,8 @@ class RealityController:
 
     def sell_stock_amount(self, stock_id, stock_amount, currency_id=None):
         stock_amount_owned = self.investor.has_stock(stock_id)
+        if stock_amount == 'ALL':
+            stock_amount = stock_amount_owned
         if stock_amount_owned < stock_amount:
             return False
         else:
@@ -59,6 +61,13 @@ class RealityController:
         return True
 
     def buy_currency_amount(self, currency_bought_id, amount_bought, currency_sold_id):
+        if amount_bought == 'MAX' and currency_sold_id != 'ANY':
+            amount_bought = self.max_currency_to_buy_for_currency(currency_bought_id, currency_sold_id)
+        elif amount_bought == 'MAX' and currency_sold_id == 'ANY':
+            currency_sold_id = self.world.get_random_currency_id()
+            amount_bought = self.max_currency_to_buy_for_currency(currency_bought_id, currency_sold_id)
+        elif amount_bought != 'MAX' and currency_sold_id == 'ANY':
+            currency_sold_id = self.get_currency_id_to_buy_currency_amount(amount_bought, currency_bought_id)
         fictional_amount_bought = amount_bought / self.world.get_currency_rate_now(currency_bought_id)
         currency_sold_amount = round(fictional_amount_bought * self.world.get_currency_rate_now(currency_sold_id), 2)
         currency_sold_owned = self.investor.has_currency(currency_sold_id)
@@ -70,6 +79,14 @@ class RealityController:
             return True
 
     def buy_stock_amount(self, stock_id, stock_amount, currency_id):
+        if currency_id == 'OWN':
+            currency_id == self.world.get_stock_currency_id(stock_id)
+        if stock_amount == 'MAX' and currency_id != 'ANY':
+            stock_amount = self.max_stock_to_buy_for_currency(stock_id, currency_id)
+        elif stock_amount == 'MAX' and currency_id == 'ANY':
+            stock_amount = self.max_stock_to_buy_for_currency(stock_id, self.world.get_random_currency_id())
+        elif stock_amount != 'MAX' and currency_id == 'ANY':
+            currency_id = self.get_currency_id_to_buy_stock_amount(stock_id, stock_amount)
         currency_owned = self.investor.has_currency(currency_id)
         currency_needed = round(self.world.get_stock_price_now(stock_id) * stock_amount, 2)
         if currency_id != self.world.get_stock_currency_id(stock_id):

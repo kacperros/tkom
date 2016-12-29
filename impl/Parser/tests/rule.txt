@@ -6,7 +6,7 @@ rule {
 		|| (stock.[CocaCola].value(1) <= 12
 		 	&& stock.[CocaCola].have.amount > 15)
 		|| inc stock.[CocaCola].value by 1 in 1;
-	actions: sell stocks.[CocaCola] amount 75,
+	actions: sell stock.[CocaCola] amount 75,
 		 sell stock.[NukaCola] part 75,
 		 sell stock.[NukaCola] amount ALL,
 		 sell stock.[CocaCola] for 10000,

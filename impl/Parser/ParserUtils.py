@@ -30,7 +30,17 @@ def expect_number(lexer):
 def get_token_skipping_whitespace(lexer):
     while True:
         token = lexer.get_token()
+        if token == -1:
+            return Token(TokenType.eof, -1)
         if token.token_type == TokenType.whitespace:
             continue
         else:
+            print(token.token_value)
             return token
+
+
+def expect_otherchar(lexer, otherchar_type, other_char_value):
+    token = get_token_skipping_whitespace(lexer)
+    if token.token_type != otherchar_type or token.token_value != other_char_value:
+        raise ValueError("Given number, " + str(token.token_value) + " was found, Sir")
+    return token.token_value

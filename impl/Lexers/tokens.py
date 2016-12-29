@@ -19,6 +19,7 @@ class TokenType(Enum):
     whitespace = 13
     comment_start = 14              # //
     date = 15
+    eof = 16
     error = 404
 
 

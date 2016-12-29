@@ -6,13 +6,13 @@ import string
 class KeywordsLexer(AbstractStateLexer):
     def __init__(self, parsed_file):
         super().__init__(parsed_file)
-        self.break_chars = [" ", "\t", "\n", ".", "/", ":", "("]
+        self.break_chars = [" ", "\t", "\n", ".", "/", ":", "(", ","]
         self.keywords = ["config", "events", "start", "rule", "id", "priority", "condition",
                          "have", "executed",
                          "currency", "rate", "amount",
                          "stock", "value", "globalValue", "amount",
                          "inc", "dec", "by", "in",
-                         "actions", "sell", "buy", "part", "for", "ANY", "MAX", "OWN"]
+                         "actions", "sell", "buy", "part", "for", "ANY", "MAX", "OWN", 'ALL']
         self.allowed_chars = list(string.ascii_letters)
         self.first_chars = self.__get_first_chars()
         self.max_length = self.__get_max_length()
