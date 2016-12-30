@@ -1,5 +1,5 @@
 import math
-
+import Utils.DateConverter as dC
 from Engine.EventWorldAdapter import EventWorldAdapter
 from Engine.StartInvestorAdapter import StartInvestorAdapter
 from Model.Investor import Investor
@@ -88,7 +88,7 @@ class RealityController:
 
     def buy_stock_amount(self, stock_id, stock_amount, currency_id):
         if currency_id == 'OWN':
-            currency_id == self.world.get_stock_currency_id(stock_id)
+            currency_id = self.world.get_stock_currency_id(stock_id)
         if stock_amount == 'MAX' and currency_id != 'ANY':
             stock_amount = self.max_stock_to_buy_for_currency(stock_id, currency_id)
         elif stock_amount == 'MAX' and currency_id == 'ANY':
@@ -137,3 +137,15 @@ class RealityController:
             currency_amount_buyable = self.max_currency_to_buy_for_currency(currency_id, k)
             if currency_amount_buyable > currency_amount:
                 return k
+
+    def run_reality(self, date_start, date_stop):
+        rules_list = list(self.rules.values())
+        rules_list.sort(key=lambda x: x.priority, reverse=True)
+        self.world.set_start_date(date_start)
+        while True:
+            for rule in rules_list:
+                rule.execute()
+            if dC.to_str(self.world.current_day) == date_stop:
+                break
+            else:
+                self.next_day()

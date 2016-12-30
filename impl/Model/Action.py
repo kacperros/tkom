@@ -9,4 +9,4 @@ class Action:
         if self.action_method is None:
             print('Action has no method!')
             return
-        self.action_method(self.symbol_bought, self.amount, self.optional_currency_used)
+        self.action_method(self.symbol_used, self.amount, self.optional_currency_used)

@@ -16,6 +16,7 @@ class MainParserTests(unittest.TestCase):
         engine.world.set_start_date('2016.05.11')
         parser = MainParser(engine, lexer, symbol_table)
         parser.parse()
+        engine.run_reality('2016.05.11', '2016.05.15')
         print("Done")
 
 

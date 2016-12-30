@@ -46,3 +46,9 @@ class Investor:
         else:
             self.__stocks[stock_id] -= amount
             return True
+
+    def get_currencies(self):
+        return self.__currencies
+
+    def get_stocks(self):
+        return self.__stocks

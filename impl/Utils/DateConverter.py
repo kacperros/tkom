@@ -31,3 +31,7 @@ def is_date_str_valid_format(date_str):
         return True
     except ValueError:
         return False
+
+
+def after(date_str_first, date_str_second):
+    return to_date(date_str_first) <  to_date(date_str_second)

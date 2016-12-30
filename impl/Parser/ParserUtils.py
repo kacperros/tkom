@@ -35,7 +35,6 @@ def get_token_skipping_whitespace(lexer):
         if token.token_type == TokenType.whitespace:
             continue
         else:
-            print(token.token_value)
             return token
 
 
